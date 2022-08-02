@@ -1,16 +1,15 @@
-export class ResizeHelper {
-    private parent: Phaser.Structs.Size;
-    private sizer: Phaser.Structs.Size;
+export class DeviceWindow {
+    public width = window.innerWidth * window.devicePixelRatio;
+    public height = window.innerHeight * window.devicePixelRatio;
 
-    constructor(
-        private gameWidth: number,
-        private gameHeight: number,
-        private scene: Phaser.Scene
-    ) {
-        this.parent = new Phaser.Structs.Size(this.gameWidth, this.gameHeight);
+    public sizer: Phaser.Structs.Size;
+    private parent: Phaser.Structs.Size;
+
+    constructor(private scene: Phaser.Scene) {
+        this.parent = new Phaser.Structs.Size(this.width, this.height);
         this.sizer = new Phaser.Structs.Size(
-            this.gameWidth,
-            this.gameHeight,
+            this.width,
+            this.height,
             Phaser.Structs.Size.FIT,
             this.parent
         );
@@ -26,12 +25,12 @@ export class ResizeHelper {
 
         const x = Math.ceil((this.parent.width - this.sizer.width) * 0.5);
         const y = 0;
-        const scaleX = this.sizer.width / this.gameWidth;
-        const scaleY = this.sizer.height / this.gameHeight;
+        const scaleX = this.sizer.width / this.width;
+        const scaleY = this.sizer.height / this.height;
 
         camera.setViewport(x, y, this.sizer.width, this.sizer.height);
         camera.setZoom(Math.max(scaleX, scaleY));
-        camera.centerOn(this.gameWidth / 2, this.gameHeight / 2);
+        camera.centerOn(this.width / 2, this.height / 2);
     }
 
     private resize(gameSize: Phaser.Structs.Size): void {

@@ -1,6 +1,12 @@
 export const assets = {
     player: {
         name: 'playerImg',
-        path: 'assets/player.png',
+        key: 'playerImg_anim',
+        path: 'assets/player-sheet.png',
+    },
+    background: {
+        name: 'backgroundImg',
+        key: 'playerImg_anim',
+        path: 'assets/road.png',
     },
 };

@@ -13,7 +13,9 @@
         "target": "es2020",
         "module": "es2020",
         "allowSyntheticDefaultImports": true,
-        "lib": ["es2018", "dom", "ScriptHost"]
+        "lib": ["es2018", "dom", "ScriptHost"],
+        "typeRoots": ["./node_modules/phaser/types"],
+        "types": ["Phaser"]
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
