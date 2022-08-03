@@ -1,11 +1,12 @@
-import { assets } from 'src/assets/assets';
 import { DeviceWindow } from '../helpers/device-window';
-import { Player } from '../player';
+
+import { Background } from '../objects/background';
+import { Player } from '../objects/player';
 
 export default class MainScene extends Phaser.Scene {
     public deviceWindow: DeviceWindow;
-    private background: Phaser.GameObjects.TileSprite;
 
+    private background: Background;
     private player: Player;
 
     constructor() {
@@ -15,23 +16,18 @@ export default class MainScene extends Phaser.Scene {
     public preload() {
         this.deviceWindow = new DeviceWindow(this);
 
+        this.background = new Background(this);
         this.player = new Player(this);
-
-        this.load.image(assets.background.name, assets.background.path);
     }
 
     public create() {
-        // Background
-        this.background = this.add
-            .tileSprite(0, 0, 0, 0, assets.background.name)
-            .setOrigin(0, 0);
-
-        this.background.displayWidth = this.deviceWindow.width;
-
+        this.background.render();
         this.player.render();
+
+        this.player.controls();
     }
 
     public update() {
-        this.background.tilePositionY -= 8;
+        this.background.animate();
     }
 }

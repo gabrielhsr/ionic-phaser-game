@@ -10,3 +10,9 @@ export const assets = {
         path: 'assets/road.png',
     },
 };
+
+export interface Asset {
+    name: string;
+    key: string;
+    path: string;
+}
