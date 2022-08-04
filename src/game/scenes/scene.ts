@@ -9,6 +9,9 @@ import { Player } from '../objects/player';
 export default class MainScene extends Phaser.Scene {
     public deviceWindow: DeviceWindow;
 
+    public left: number;
+    public right: number;
+
     private background: Background;
     private player: Player;
 
@@ -20,18 +23,25 @@ export default class MainScene extends Phaser.Scene {
 
     public preload() {
         this.deviceWindow = new DeviceWindow(this);
+        this.calculateRoutes();
 
         this.background = new Background(this);
         this.player = new Player(this);
+
+        this.load.image(assets.obstacleHole.key, assets.obstacleHole.path);
+        this.load.image(assets.obstacleCar.key, assets.obstacleCar.path);
+        this.load.image(assets.obstacleTruck.key, assets.obstacleTruck.path);
+        this.load.image(assets.obstacleVan.key, assets.obstacleVan.path);
+    }
+
+    public create() {
+        this.background.render();
 
         this.obstacles.push(new Obstacle(this, assets.obstacleHole));
         this.obstacles.push(new Obstacle(this, assets.obstacleCar));
         this.obstacles.push(new Obstacle(this, assets.obstacleTruck));
         this.obstacles.push(new Obstacle(this, assets.obstacleVan));
-    }
 
-    public create() {
-        this.background.render();
         this.player.render();
 
         this.player.controls();
@@ -39,7 +49,7 @@ export default class MainScene extends Phaser.Scene {
         const spawn = new Phaser.Time.TimerEvent({
             delay: 1000,
             loop: true,
-            callback: this.spawn,
+            callback: this.spawnObstacle,
             callbackScope: this,
         });
 
@@ -47,12 +57,22 @@ export default class MainScene extends Phaser.Scene {
     }
 
     public update() {
-        this.background.animate();
+        // this.background.animate();
     }
 
-    private spawn() {
+    private calculateRoutes() {
+        // Calculate Position
+        const deviceWidth = this.deviceWindow.width;
+        const sidewalkWidth = deviceWidth * 0.187963;
+        const roadWidth = deviceWidth * 0.624074;
+
+        this.left = sidewalkWidth + roadWidth / 2 / 2;
+        this.right = this.left + roadWidth / 2;
+    }
+
+    private spawnObstacle() {
         const obstacleIndex = between(0, this.obstacles.length);
 
-        this.obstacles[obstacleIndex].render();
+        // this.obstacles[obstacleIndex].spawn();
     }
 }

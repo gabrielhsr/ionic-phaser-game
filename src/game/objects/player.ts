@@ -5,11 +5,9 @@ export class Player {
     private player: Phaser.GameObjects.Sprite;
 
     private isLeft = true;
-    private left: number;
-    private right: number;
 
     constructor(private scene: MainScene) {
-        this.scene.load.spritesheet(assets.player.name, assets.player.path, {
+        this.scene.load.spritesheet(assets.player.key, assets.player.path, {
             frameWidth: 180,
             frameHeight: 342,
         });
@@ -17,15 +15,7 @@ export class Player {
 
     public render() {
         // Add Sprite to Scene
-        this.player = this.scene.add.sprite(0, 0, assets.player.name);
-
-        // Calculate Position
-        const deviceWidth = this.scene.deviceWindow.width;
-        const sidewalkWidth = deviceWidth * 0.187963;
-        const roadWidth = deviceWidth * 0.624074;
-
-        this.left = sidewalkWidth + roadWidth / 2 / 2;
-        this.right = this.left + roadWidth / 2;
+        this.player = this.scene.add.sprite(0, 0, assets.player.key);
 
         this.changeSide();
 
@@ -33,7 +23,7 @@ export class Player {
         this.scene.anims.create({
             key: assets.player.key,
             frames: this.scene.anims.generateFrameNumbers(
-                assets.player.name,
+                assets.player.key,
                 null
             ),
             frameRate: 60,
@@ -54,7 +44,7 @@ export class Player {
     private changeSide() {
         this.isLeft = !this.isLeft;
 
-        const widthPosition = this.isLeft ? this.right : this.left;
+        const widthPosition = this.isLeft ? this.scene.right : this.scene.left;
         const heightPosition =
             this.scene.deviceWindow.height - this.player.height / 2 - 50;
 

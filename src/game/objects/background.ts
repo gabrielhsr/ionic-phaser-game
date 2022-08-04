@@ -5,12 +5,12 @@ export class Background {
     private background: Phaser.GameObjects.TileSprite;
 
     constructor(private scene: MainScene) {
-        this.scene.load.image(assets.background.name, assets.background.path);
+        this.scene.load.image(assets.background.key, assets.background.path);
     }
 
     public render() {
         this.background = this.scene.add
-            .tileSprite(0, 0, 0, 0, assets.background.name)
+            .tileSprite(0, 0, 0, 0, assets.background.key)
             .setOrigin(0, 0);
 
         this.background.displayWidth = this.scene.deviceWindow.width;
