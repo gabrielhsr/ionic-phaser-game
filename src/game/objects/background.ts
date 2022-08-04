@@ -1,22 +1,18 @@
-import { assets } from 'src/assets/assets';
+import { Asset } from 'src/assets/assets';
 import MainScene from '../scenes/scene';
 
-export class Background {
-    private background: Phaser.GameObjects.TileSprite;
+export class Background extends Phaser.GameObjects.TileSprite {
+    constructor(scene: MainScene, asset: Asset) {
+        super(scene, 0, 0, 0, 0, asset.key);
 
-    constructor(private scene: MainScene) {
-        this.scene.load.image(assets.background.key, assets.background.path);
+        // Set Origind and Size to fit the screen
+        this.setOrigin(0, 0);
+        this.displayWidth = scene.deviceWindow.width;
+
+        scene.add.existing(this);
     }
 
-    public render() {
-        this.background = this.scene.add
-            .tileSprite(0, 0, 0, 0, assets.background.key)
-            .setOrigin(0, 0);
-
-        this.background.displayWidth = this.scene.deviceWindow.width;
-    }
-
-    public animate() {
-        this.background.tilePositionY -= 8;
+    protected preUpdate(): void {
+        this.tilePositionY -= 8;
     }
 }

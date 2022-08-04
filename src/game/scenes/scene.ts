@@ -1,4 +1,5 @@
-import { assets } from 'src/assets/assets';
+/* eslint-disable curly */
+import { Asset, assets } from 'src/assets/assets';
 import { DeviceWindow } from '../helpers/device-window';
 import { between } from '../helpers/random';
 
@@ -9,13 +10,20 @@ import { Player } from '../objects/player';
 export default class MainScene extends Phaser.Scene {
     public deviceWindow: DeviceWindow;
 
-    public left: number;
-    public right: number;
+    public leftLane: number;
+    public rightLane: number;
 
     private background: Background;
     private player: Player;
 
-    private obstacles: Obstacle[] = [];
+    private obstacles: Asset[] = [
+        assets.obstacleHole,
+        assets.obstacleCar,
+        assets.obstacleTruck,
+        assets.obstacleVan,
+    ];
+
+    private spawnedObstacles: Obstacle[] = [];
 
     constructor() {
         super('main');
@@ -25,26 +33,22 @@ export default class MainScene extends Phaser.Scene {
         this.deviceWindow = new DeviceWindow(this);
         this.calculateRoutes();
 
-        this.background = new Background(this);
-        this.player = new Player(this);
+        // Assets
+        this.load.spritesheet(assets.player.key, assets.player.path, {
+            frameWidth: 180,
+            frameHeight: 342,
+        });
 
-        this.load.image(assets.obstacleHole.key, assets.obstacleHole.path);
-        this.load.image(assets.obstacleCar.key, assets.obstacleCar.path);
-        this.load.image(assets.obstacleTruck.key, assets.obstacleTruck.path);
-        this.load.image(assets.obstacleVan.key, assets.obstacleVan.path);
+        this.load.image(assets.background.key, assets.background.path);
+
+        this.obstacles.forEach((obstacle) =>
+            this.load.image(obstacle.key, obstacle.path)
+        );
     }
 
     public create() {
-        this.background.render();
-
-        this.obstacles.push(new Obstacle(this, assets.obstacleHole));
-        this.obstacles.push(new Obstacle(this, assets.obstacleCar));
-        this.obstacles.push(new Obstacle(this, assets.obstacleTruck));
-        this.obstacles.push(new Obstacle(this, assets.obstacleVan));
-
-        this.player.render();
-
-        this.player.controls();
+        this.background = new Background(this, assets.background);
+        this.player = new Player(this, assets.player);
 
         const spawn = new Phaser.Time.TimerEvent({
             delay: 1000,
@@ -57,22 +61,27 @@ export default class MainScene extends Phaser.Scene {
     }
 
     public update() {
-        // this.background.animate();
+        // console.log(this.spawnedObstacles);
     }
 
-    private calculateRoutes() {
+    private spawnObstacle(): void {
+        if (this.spawnedObstacles.length) return;
+
+        const obstacleToSpawn =
+            this.obstacles[between(0, this.obstacles.length)];
+
+        const obstacleSpawned = new Obstacle(this, obstacleToSpawn);
+
+        this.spawnedObstacles.push(obstacleSpawned);
+    }
+
+    private calculateRoutes(): void {
         // Calculate Position
         const deviceWidth = this.deviceWindow.width;
         const sidewalkWidth = deviceWidth * 0.187963;
         const roadWidth = deviceWidth * 0.624074;
 
-        this.left = sidewalkWidth + roadWidth / 2 / 2;
-        this.right = this.left + roadWidth / 2;
-    }
-
-    private spawnObstacle() {
-        const obstacleIndex = between(0, this.obstacles.length);
-
-        // this.obstacles[obstacleIndex].spawn();
+        this.leftLane = sidewalkWidth + roadWidth / 2 / 2;
+        this.rightLane = this.leftLane + roadWidth / 2;
     }
 }

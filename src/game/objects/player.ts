@@ -1,22 +1,28 @@
-import { assets } from 'src/assets/assets';
+import { Asset, assets } from 'src/assets/assets';
 import MainScene from '../scenes/scene';
 
-export class Player {
-    private player: Phaser.GameObjects.Sprite;
-
+export class Player extends Phaser.GameObjects.Sprite {
     private isLeft = true;
 
-    constructor(private scene: MainScene) {
-        this.scene.load.spritesheet(assets.player.key, assets.player.path, {
-            frameWidth: 180,
-            frameHeight: 342,
+    constructor(public scene: MainScene, asset: Asset) {
+        super(scene, 0, 0, asset.key);
+
+        scene.add.existing(this);
+
+        this.load();
+        this.controls();
+    }
+
+    private controls() {
+        this.scene.input.on('pointerup', (pointer: Phaser.Input.Pointer) => {
+            if (pointer.leftButtonReleased()) {
+                this.changeSide();
+            }
         });
     }
 
-    public render() {
+    private load() {
         // Add Sprite to Scene
-        this.player = this.scene.add.sprite(0, 0, assets.player.key);
-
         this.changeSide();
 
         // Add Animation and Play
@@ -30,24 +36,18 @@ export class Player {
             repeat: -1,
         });
 
-        this.player.play(assets.player.key);
-    }
-
-    public controls() {
-        this.scene.input.on('pointerup', (pointer: Phaser.Input.Pointer) => {
-            if (pointer.leftButtonReleased()) {
-                this.changeSide();
-            }
-        });
+        this.play(assets.player.key);
     }
 
     private changeSide() {
         this.isLeft = !this.isLeft;
 
-        const widthPosition = this.isLeft ? this.scene.right : this.scene.left;
+        const widthPosition = this.isLeft
+            ? this.scene.rightLane
+            : this.scene.leftLane;
         const heightPosition =
-            this.scene.deviceWindow.height - this.player.height / 2 - 50;
+            this.scene.deviceWindow.height - this.height / 2 - 50;
 
-        this.player.setPosition(widthPosition, heightPosition);
+        this.setPosition(widthPosition, heightPosition);
     }
 }
