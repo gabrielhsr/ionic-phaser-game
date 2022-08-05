@@ -13,6 +13,8 @@ export default class MainScene extends Phaser.Scene {
     public leftLane: number;
     public rightLane: number;
 
+    public spawnedObstacles: Obstacle[] = [];
+
     private background: Background;
     private player: Player;
 
@@ -22,8 +24,6 @@ export default class MainScene extends Phaser.Scene {
         assets.obstacleTruck,
         assets.obstacleVan,
     ];
-
-    private spawnedObstacles: Obstacle[] = [];
 
     constructor() {
         super('main');

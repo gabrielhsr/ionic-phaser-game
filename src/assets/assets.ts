@@ -18,22 +18,27 @@ export const assets = {
     obstacleCar: {
         key: `${obstacleCar}_key`,
         path: `assets/${obstacleCar}.png`,
+        speed: 2,
     },
     obstacleHole: {
         key: `${obstacleHole}_key`,
         path: `assets/${obstacleHole}.png`,
+        speed: 0,
     },
     obstacleTruck: {
         key: `${obstacleTruck}_key`,
         path: `assets/${obstacleTruck}.png`,
+        speed: 2,
     },
     obstacleVan: {
         key: `${obstacleVan}_key`,
         path: `assets/${obstacleVan}.png`,
+        speed: 4,
     },
 };
 
 export interface Asset {
     key: string;
     path: string;
+    speed?: number;
 }
