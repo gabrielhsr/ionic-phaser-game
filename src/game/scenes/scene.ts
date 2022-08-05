@@ -13,7 +13,9 @@ export default class MainScene extends Phaser.Scene {
     public leftLane: number;
     public rightLane: number;
 
-    public spawnedObstacles: Obstacle[] = [];
+    public spawnedObstacles: Phaser.GameObjects.Group;
+
+    public speed = 10;
 
     private background: Background;
     private player: Player;
@@ -35,8 +37,8 @@ export default class MainScene extends Phaser.Scene {
 
         // Assets
         this.load.spritesheet(assets.player.key, assets.player.path, {
-            frameWidth: 180,
-            frameHeight: 342,
+            frameWidth: 150,
+            frameHeight: 285,
         });
 
         this.load.image(assets.background.key, assets.background.path);
@@ -53,9 +55,11 @@ export default class MainScene extends Phaser.Scene {
         const spawn = new Phaser.Time.TimerEvent({
             delay: 1000,
             loop: true,
-            callback: this.spawnObstacle,
+            callback: this.eachSecond,
             callbackScope: this,
         });
+
+        this.spawnedObstacles = this.add.group();
 
         this.time.addEvent(spawn);
     }
@@ -64,15 +68,26 @@ export default class MainScene extends Phaser.Scene {
         // console.log(this.spawnedObstacles);
     }
 
-    private spawnObstacle(): void {
-        if (this.spawnedObstacles.length) return;
+    private eachSecond(): void {
+        this.player.updateAnimationSpeed();
+        this.spawnObstacles();
 
-        const obstacleToSpawn =
-            this.obstacles[between(0, this.obstacles.length)];
+        this.speed += 0.2;
+    }
 
-        const obstacleSpawned = new Obstacle(this, obstacleToSpawn);
+    private spawnObstacles(): void {
+        if (this.spawnedObstacles.children.size) return;
 
-        this.spawnedObstacles.push(obstacleSpawned);
+        const randomIndex = between(0, this.obstacles.length);
+        const obstacleToSpawn = this.obstacles[randomIndex];
+
+        const obstacle = new Obstacle(this, obstacleToSpawn);
+
+        this.spawnedObstacles.add(obstacle);
+
+        this.physics.add.collider(this.player, this.spawnedObstacles, () => {
+            this.scene.pause();
+        });
     }
 
     private calculateRoutes(): void {

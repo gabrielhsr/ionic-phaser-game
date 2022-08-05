@@ -13,6 +13,9 @@ export class Game {
             width: 640,
             height: 960,
         },
+        physics: {
+            default: 'arcade',
+        },
     };
 
     constructor() {

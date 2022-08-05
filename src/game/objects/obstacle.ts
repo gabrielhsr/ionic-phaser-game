@@ -9,18 +9,21 @@ export class Obstacle extends Phaser.GameObjects.Sprite {
 
         super(scene, route, -(sprite.height / 2), asset.key);
 
+        scene.physics.add.existing(this);
         scene.add.existing(this);
+
+        console.log('spawn', new Date().toISOString());
     }
 
     protected preUpdate(time: number, delta: number): void {
         // Move down
-        this.y += 8 - this.asset.speed;
+        this.y +=
+            this.scene.speed - this.scene.speed * (this.asset.speed / 500);
 
         if (this.y - this.height > this.scene.deviceWindow.height) {
-            const index = this.scene.spawnedObstacles.indexOf(this);
-
-            this.scene.spawnedObstacles.splice(index, 1);
             this.destroy();
+
+            console.log('kill ', new Date().toISOString());
         }
     }
 }

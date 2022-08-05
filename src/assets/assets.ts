@@ -18,7 +18,7 @@ export const assets = {
     obstacleCar: {
         key: `${obstacleCar}_key`,
         path: `assets/${obstacleCar}.png`,
-        speed: 2,
+        speed: 100,
     },
     obstacleHole: {
         key: `${obstacleHole}_key`,
@@ -28,12 +28,12 @@ export const assets = {
     obstacleTruck: {
         key: `${obstacleTruck}_key`,
         path: `assets/${obstacleTruck}.png`,
-        speed: 2,
+        speed: 70,
     },
     obstacleVan: {
         key: `${obstacleVan}_key`,
         path: `assets/${obstacleVan}.png`,
-        speed: 4,
+        speed: 85,
     },
 };
 

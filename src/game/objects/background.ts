@@ -2,7 +2,7 @@ import { Asset } from 'src/assets/assets';
 import MainScene from '../scenes/scene';
 
 export class Background extends Phaser.GameObjects.TileSprite {
-    constructor(scene: MainScene, asset: Asset) {
+    constructor(public scene: MainScene, asset: Asset) {
         super(scene, 0, 0, 0, 0, asset.key);
 
         // Set Origind and Size to fit the screen
@@ -13,6 +13,6 @@ export class Background extends Phaser.GameObjects.TileSprite {
     }
 
     protected preUpdate(): void {
-        this.tilePositionY -= 8;
+        this.tilePositionY -= this.scene.speed;
     }
 }

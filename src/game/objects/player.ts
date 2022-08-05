@@ -1,16 +1,21 @@
 import { Asset, assets } from 'src/assets/assets';
 import MainScene from '../scenes/scene';
 
-export class Player extends Phaser.GameObjects.Sprite {
+export class Player extends Phaser.Physics.Arcade.Sprite {
     private isLeft = true;
 
     constructor(public scene: MainScene, asset: Asset) {
         super(scene, 0, 0, asset.key);
 
         scene.add.existing(this);
+        scene.physics.add.existing(this);
 
         this.load();
         this.controls();
+    }
+
+    public updateAnimationSpeed(): void {
+        this.anims.timeScale = this.scene.speed / 10;
     }
 
     private controls() {
