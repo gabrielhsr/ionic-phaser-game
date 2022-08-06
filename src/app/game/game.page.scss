@@ -1,0 +1,13 @@
+.bar {
+	font-family: "early_gameboyregular";
+	background-color: black;
+	display: flex;
+	justify-content: center;
+	position: fixed;
+	padding: 5px;
+	width: 100%;
+
+	p {
+		margin: 0 !important;
+	}
+}

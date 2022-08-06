@@ -1,24 +1,65 @@
+/* eslint-disable curly */
+/* eslint-disable @typescript-eslint/member-ordering */
 import * as Phaser from 'phaser';
+import { BehaviorSubject, Observable } from 'rxjs';
 import MainScene from './scenes/scene';
 
 export class Game {
-    public game: Phaser.Game;
+	public game: Phaser.Game;
 
-    private config: Phaser.Types.Core.GameConfig = {
-        type: Phaser.AUTO,
-        scene: [MainScene],
-        scale: {
-            mode: Phaser.Scale.RESIZE,
-            parent: 'game_phaser',
-            width: 640,
-            height: 960,
-        },
-        physics: {
-            default: 'arcade',
-        },
-    };
+	public get score(): Observable<number> {
+		return this.scoreSubject.asObservable();
+	}
 
-    constructor() {
-        this.game = new Phaser.Game(this.config);
-    }
+	public get isGameOver(): Observable<boolean> {
+		return this.gameOverSubject.asObservable();
+	}
+
+	private scoreSubject = new BehaviorSubject<number>(0);
+	private gameOverSubject = new BehaviorSubject<boolean>(false);
+
+	private mainScene: MainScene;
+
+	private config: Phaser.Types.Core.GameConfig = {
+		type: Phaser.AUTO,
+		scene: [MainScene],
+		scale: {
+			mode: Phaser.Scale.RESIZE,
+			parent: 'game_phaser',
+			width: 640,
+			height: 960,
+		},
+		physics: {
+			default: 'arcade',
+		},
+	};
+
+	constructor() {
+		this.game = new Phaser.Game(this.config);
+
+		this.game.events.on('poststep', () => {
+			this.mainScene = this.game.scene.getScene('main') as MainScene;
+
+			this.mainScene.events.addListener('update', () => {
+				this.scoreSubject.next(this.mainScene.score);
+				this.gameOverSubject.next(this.mainScene.isGameOver);
+			});
+		});
+	}
+
+	public playPause() {
+		if (this.game.scene.isPaused('main')) {
+			this.game.scene.resume('main');
+		} else {
+			this.game.scene.pause('main');
+		}
+	}
+
+	public restart() {
+		if (!this.mainScene) return;
+
+		this.gameOverSubject.next(false);
+		this.scoreSubject.next(0);
+		this.mainScene.scene.restart();
+	}
 }

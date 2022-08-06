@@ -1,0 +1,10 @@
+<div id="restart_modal" class="modal">
+	<!-- Modal content -->
+	<div class="modal_content">
+		<h1>GAME OVER</h1>
+
+		<p>SCORE: {{ game.score | async }}</p>
+
+		<button (click)="game.restart()">RESTART</button>
+	</div>
+</div>

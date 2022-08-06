@@ -1,58 +1,62 @@
 import { Asset, assets } from 'src/assets/assets';
+import { between } from '../helpers/random';
 import MainScene from '../scenes/scene';
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
-    private isLeft = true;
+	private isLeft = true;
 
-    constructor(public scene: MainScene, asset: Asset) {
-        super(scene, 0, 0, asset.key);
+	constructor(public scene: MainScene, asset: Asset) {
+		super(scene, 0, 0, asset.key);
 
-        scene.add.existing(this);
-        scene.physics.add.existing(this);
+		scene.add.existing(this);
+		scene.physics.add.existing(this);
 
-        this.load();
-        this.controls();
-    }
+		this.load();
+		this.controls();
+	}
 
-    public updateAnimationSpeed(): void {
-        this.anims.timeScale = this.scene.speed / 10;
-    }
+	public updateAnimationSpeed(): void {
+		this.anims.timeScale = this.scene.speed / 10;
+	}
 
-    private controls() {
-        this.scene.input.on('pointerup', (pointer: Phaser.Input.Pointer) => {
-            if (pointer.leftButtonReleased()) {
-                this.changeSide();
-            }
-        });
-    }
+	private controls() {
+		this.scene.input.on('pointerup', (pointer: Phaser.Input.Pointer) => {
+			if (pointer.leftButtonReleased()) {
+				this.changeSide();
+			}
+		});
+	}
 
-    private load() {
-        // Add Sprite to Scene
-        this.changeSide();
+	private load() {
+		const laneToSpawn = between(0, 2) === 1 ? true : false;
+		this.isLeft = laneToSpawn;
 
-        // Add Animation and Play
-        this.scene.anims.create({
-            key: assets.player.key,
-            frames: this.scene.anims.generateFrameNumbers(
-                assets.player.key,
-                null
-            ),
-            frameRate: 60,
-            repeat: -1,
-        });
+		// Add Sprite to Scene
+		this.changeSide();
 
-        this.play(assets.player.key);
-    }
+		// Add Animation and Play
+		this.scene.anims.create({
+			key: assets.player.key,
+			frames: this.scene.anims.generateFrameNumbers(
+				assets.player.key,
+				null
+			),
+			frameRate: 60,
+			repeat: -1,
+		});
 
-    private changeSide() {
-        this.isLeft = !this.isLeft;
+		this.play(assets.player.key);
+	}
 
-        const widthPosition = this.isLeft
-            ? this.scene.rightLane
-            : this.scene.leftLane;
-        const heightPosition =
-            this.scene.deviceWindow.height - this.height / 2 - 50;
+	private changeSide() {
+		this.isLeft = !this.isLeft;
 
-        this.setPosition(widthPosition, heightPosition);
-    }
+		const widthPosition = this.isLeft
+			? this.scene.rightLane
+			: this.scene.leftLane;
+		const heightPosition =
+			this.scene.deviceWindow.height - this.height / 2 - 50;
+
+		this.setPosition(widthPosition, heightPosition);
+	}
 }

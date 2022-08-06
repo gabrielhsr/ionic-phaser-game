@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Game } from 'src/game/main';
 
 @Component({
@@ -7,9 +8,11 @@ import { Game } from 'src/game/main';
     styleUrls: ['./game.page.scss'],
 })
 export class GamePage implements OnInit {
+    public game: Game;
+
     constructor() {}
 
     ngOnInit() {
-        const game = new Game();
+        this.game = new Game();
     }
 }

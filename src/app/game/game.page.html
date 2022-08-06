@@ -1,3 +1,11 @@
 <ion-content class="no-scroll">
-    <div id="game_phaser"></div>
+	<div class="bar">
+		<p>SCORE: {{ game.score | async }}</p>
+	</div>
+	<div id="game_phaser"></div>
 </ion-content>
+
+<app-restart-modal
+	[game]="game"
+	*ngIf="game.isGameOver | async"
+></app-restart-modal>
