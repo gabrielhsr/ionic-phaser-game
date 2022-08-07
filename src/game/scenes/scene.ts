@@ -45,8 +45,8 @@ export default class MainScene extends Phaser.Scene {
 
 		// Assets
 		this.load.spritesheet(assets.player.key, assets.player.path, {
-			frameWidth: 150,
-			frameHeight: 308,
+			frameWidth: 64,
+			frameHeight: 121,
 		});
 
 		this.load.image(assets.background.key, assets.background.path);

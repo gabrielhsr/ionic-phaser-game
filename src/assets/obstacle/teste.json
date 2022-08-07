@@ -1,0 +1,104 @@
+{
+	"textures": [
+		{
+			"image": "teste.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 840,
+				"h": 616
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "car01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 150,
+						"h": 275
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 150,
+						"h": 275
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 150,
+						"h": 275
+					}
+				},
+				{
+					"filename": "hole01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 133,
+						"h": 132
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 133,
+						"h": 132
+					},
+					"frame": {
+						"x": 210,
+						"y": 0,
+						"w": 133,
+						"h": 132
+					}
+				},
+				{
+					"filename": "truck01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 210,
+						"h": 616
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 210,
+						"h": 616
+					},
+					"frame": {
+						"x": 420,
+						"y": 0,
+						"w": 210,
+						"h": 616
+					}
+				},
+				{
+					"filename": "van01.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 185,
+						"h": 409
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 185,
+						"h": 409
+					},
+					"frame": {
+						"x": 630,
+						"y": 0,
+						"w": 185,
+						"h": 409
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:883e74106b7ca41e66c502982c8733b6:7e9c63e9a2403405a1c502b5c6eaeba5:7b6090578191442cff384eed688153eb$"
+	}
+}

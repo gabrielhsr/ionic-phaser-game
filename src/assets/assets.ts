@@ -1,5 +1,5 @@
 const player = 'player';
-const playerSheet = 'gol-g2';
+const playerSheet = 'player-sheet';
 const background = 'road';
 const obstacleCar = 'obstacle/car01';
 const obstacleHole = 'obstacle/hole01';
