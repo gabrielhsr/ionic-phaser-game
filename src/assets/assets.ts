@@ -1,5 +1,5 @@
 const player = 'player';
-const playerSheet = 'player-sheet';
+const playerSheet = 'player';
 const background = 'road';
 const obstacleCar = 'obstacle/car01';
 const obstacleHole = 'obstacle/hole01';

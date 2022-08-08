@@ -26,8 +26,6 @@ export class Game {
 		scale: {
 			mode: Phaser.Scale.RESIZE,
 			parent: 'game_phaser',
-			width: 640,
-			height: 960,
 		},
 		physics: {
 			default: 'arcade',

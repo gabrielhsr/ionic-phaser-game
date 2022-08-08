@@ -15,10 +15,8 @@ export class DeviceWindow {
 			this.parent
 		);
 
-		this.updateCamera();
-
 		this.scene.scale.on('resize', this.resize, this);
-		this.scene.game.scale.refresh();
+		this.scene.scale.refresh();
 	}
 
 	private updateCamera(): void {
@@ -37,6 +35,9 @@ export class DeviceWindow {
 	private resize(gameSize: Phaser.Structs.Size): void {
 		const width = gameSize.width;
 		const height = gameSize.height;
+
+		console.log(width, this.width);
+		console.log(height, this.height);
 
 		this.parent.setSize(width, height);
 		this.sizer.setSize(width, height);

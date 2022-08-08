@@ -10,6 +10,8 @@ export class Obstacle extends Phaser.GameObjects.Sprite {
 		const randomDistance = between(0, 1000);
 
 		super(scene, route, -(sprite.height / 2) - randomDistance, asset.key);
+
+		this.setScale(2);
 		scene.physics.add.existing(this);
 		scene.add.existing(this);
 	}
