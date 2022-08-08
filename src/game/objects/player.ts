@@ -11,7 +11,6 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 		scene.add.existing(this);
 		scene.physics.add.existing(this);
 
-		this.setScale(2);
 		this.load();
 		this.controls();
 	}
@@ -56,7 +55,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 			? this.scene.rightLane
 			: this.scene.leftLane;
 		const heightPosition =
-			this.scene.deviceWindow.height - this.height / 2 - 50;
+			this.scene.deviceWindow.height - this.displayHeight / 2 - 25;
 
 		this.setPosition(widthPosition, heightPosition);
 	}

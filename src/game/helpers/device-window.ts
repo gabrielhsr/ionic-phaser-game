@@ -1,7 +1,7 @@
 /* eslint-disable curly */
 export class DeviceWindow {
-	public width = window.innerWidth * window.devicePixelRatio;
-	public height = window.innerHeight * window.devicePixelRatio;
+	public width = 360;
+	public height = 640;
 
 	public sizer: Phaser.Structs.Size;
 	private parent: Phaser.Structs.Size;
@@ -15,19 +15,17 @@ export class DeviceWindow {
 			this.parent
 		);
 
+		console.log(this.width, this.height);
+
 		this.scene.scale.on('resize', this.resize, this);
 		this.scene.scale.refresh();
 	}
 
 	private updateCamera(): void {
 		const camera = this.scene.cameras.main;
-
-		const x = Math.ceil((this.parent.width - this.sizer.width) * 0.5);
-		const y = 0;
 		const scaleX = this.sizer.width / this.width;
 		const scaleY = this.sizer.height / this.height;
 
-		camera.setViewport(x, y, this.sizer.width, this.sizer.height);
 		camera.setZoom(Math.max(scaleX, scaleY));
 		camera.centerOn(this.width / 2, this.height / 2);
 	}
@@ -35,9 +33,6 @@ export class DeviceWindow {
 	private resize(gameSize: Phaser.Structs.Size): void {
 		const width = gameSize.width;
 		const height = gameSize.height;
-
-		console.log(width, this.width);
-		console.log(height, this.height);
 
 		this.parent.setSize(width, height);
 		this.sizer.setSize(width, height);

@@ -23,12 +23,14 @@ export class Game {
 	private config: Phaser.Types.Core.GameConfig = {
 		type: Phaser.AUTO,
 		scene: [MainScene],
+		pixelArt: true,
 		scale: {
 			mode: Phaser.Scale.RESIZE,
 			parent: 'game_phaser',
 		},
 		physics: {
 			default: 'arcade',
+			arcade: { debug: true },
 		},
 	};
 
