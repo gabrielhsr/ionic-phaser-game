@@ -24,6 +24,7 @@ export class Game {
 		type: Phaser.AUTO,
 		scene: [MainScene],
 		pixelArt: true,
+		backgroundColor: '0x3364FF',
 		scale: {
 			mode: Phaser.Scale.RESIZE,
 			parent: 'game_phaser',

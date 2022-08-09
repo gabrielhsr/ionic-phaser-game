@@ -1,6 +1,6 @@
 /* eslint-disable curly */
 import { Asset, assets } from 'src/assets/assets';
-import { DeviceWindow } from '../helpers/device-window';
+import { WindowHelper } from '../helpers/window-helper';
 import { between } from '../helpers/random';
 
 import { Background } from '../objects/background';
@@ -8,7 +8,7 @@ import { Obstacle } from '../objects/obstacle';
 import { Player } from '../objects/player';
 
 export default class MainScene extends Phaser.Scene {
-	public deviceWindow: DeviceWindow;
+	public windowHelper: WindowHelper;
 
 	public leftLane: number;
 	public rightLane: number;
@@ -38,9 +38,9 @@ export default class MainScene extends Phaser.Scene {
 	public preload() {
 		this.isGameOver = false;
 		this.score = 0;
-		this.speed = 10;
+		this.speed = 8;
 
-		this.deviceWindow = new DeviceWindow(this);
+		this.windowHelper = new WindowHelper(this);
 		this.calculateRoutes();
 
 		// Assets
@@ -50,6 +50,9 @@ export default class MainScene extends Phaser.Scene {
 		});
 
 		this.load.image(assets.background.key, assets.background.path);
+		this.load.image(assets.gameSizeBorder.key, assets.gameSizeBorder.path);
+		this.load.image(assets.verticalLine.key, assets.verticalLine.path);
+		this.load.image(assets.horizontalLine.key, assets.horizontalLine.path);
 
 		this.obstacles.forEach((obstacle) =>
 			this.load.image(obstacle.key, obstacle.path)
@@ -57,6 +60,11 @@ export default class MainScene extends Phaser.Scene {
 	}
 
 	public create() {
+		this.add
+			.image(0, 0, assets.gameSizeBorder.key)
+			.setOrigin(0, 0)
+			.setDepth(1);
+
 		this.background = new Background(this, assets.background);
 		this.player = new Player(this, assets.player);
 
@@ -106,7 +114,7 @@ export default class MainScene extends Phaser.Scene {
 
 	private calculateRoutes(): void {
 		// Calculate Position
-		const deviceWidth = this.deviceWindow.width;
+		const deviceWidth = this.windowHelper.fixedWidth;
 		const sidewalkWidth = deviceWidth * 0.187963;
 		const roadWidth = deviceWidth * 0.624074;
 

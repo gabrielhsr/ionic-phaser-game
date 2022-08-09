@@ -1,3 +1,4 @@
+/* eslint-disable curly */
 import { Asset } from 'src/assets/assets';
 import { between } from '../helpers/random';
 import MainScene from '../scenes/scene';
@@ -13,6 +14,8 @@ export class Obstacle extends Phaser.GameObjects.Sprite {
 
 		scene.physics.add.existing(this);
 		scene.add.existing(this);
+
+		if (this.asset.scale) this.setScale(this.asset.scale);
 	}
 
 	protected preUpdate(time: number, delta: number): void {
@@ -20,7 +23,7 @@ export class Obstacle extends Phaser.GameObjects.Sprite {
 		this.y +=
 			this.scene.speed - this.scene.speed * (this.asset.speed / 500);
 
-		if (this.y - this.height / 2 >= this.scene.deviceWindow.height) {
+		if (this.y - this.height / 2 >= this.scene.windowHelper.fixedHeight) {
 			this.destroy();
 		}
 	}

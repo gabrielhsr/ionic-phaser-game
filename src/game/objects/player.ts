@@ -33,6 +33,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
 		// Add Sprite to Scene
 		this.changeSide();
+		//
 
 		// Add Animation and Play
 		this.scene.anims.create({
@@ -55,7 +56,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 			? this.scene.rightLane
 			: this.scene.leftLane;
 		const heightPosition =
-			this.scene.deviceWindow.height - this.displayHeight / 2 - 25;
+			this.scene.windowHelper.fixedHeight - this.displayHeight / 2 - 25;
 
 		this.setPosition(widthPosition, heightPosition);
 	}
