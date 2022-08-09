@@ -8,7 +8,10 @@ export class Obstacle extends Phaser.GameObjects.Sprite {
 		const route = between(0, 2) === 1 ? scene.leftLane : scene.rightLane;
 		const sprite = scene.textures.get(asset.key).getSourceImage();
 
-		const randomDistance = between(0, 1000);
+		const randomDistance = between(
+			Math.abs(scene.windowHelper.trueZero.y),
+			1000
+		);
 
 		super(scene, route, -(sprite.height / 2) - randomDistance, asset.key);
 
@@ -23,7 +26,7 @@ export class Obstacle extends Phaser.GameObjects.Sprite {
 		this.y +=
 			this.scene.speed - this.scene.speed * (this.asset.speed / 500);
 
-		if (this.y - this.height / 2 >= this.scene.windowHelper.fixedHeight) {
+		if (this.y - this.height / 2 >= this.scene.windowHelper.deviceHeight) {
 			this.destroy();
 		}
 	}

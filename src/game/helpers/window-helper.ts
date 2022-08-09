@@ -1,19 +1,24 @@
 /* eslint-disable curly */
 export class WindowHelper {
-	public fixedWidth = 360;
-	public fixedHeight = 640;
+	public gameWidth = 360;
+	public gameHeight = 640;
+
+	public deviceHeight = 0;
+	public deviceWidth = 0;
+
+	public trueZero = { y: 0, x: 0 };
 
 	private gameView: Phaser.Structs.Size;
 	private deviceView: Phaser.Structs.Size;
 
 	constructor(private scene: Phaser.Scene) {
 		this.deviceView = new Phaser.Structs.Size(
-			this.fixedWidth,
-			this.fixedHeight
+			this.gameWidth,
+			this.gameHeight
 		);
 		this.gameView = new Phaser.Structs.Size(
-			this.fixedWidth,
-			this.fixedHeight,
+			this.gameWidth,
+			this.gameHeight,
 			Phaser.Structs.Size.FIT,
 			this.deviceView
 		);
@@ -24,13 +29,13 @@ export class WindowHelper {
 
 	private updateCamera(): void {
 		const camera = this.scene.cameras.main;
-		const scaleX = this.gameView.width / this.fixedWidth;
-		const scaleY = this.gameView.height / this.fixedHeight;
-		const halfFixedHeight = this.fixedHeight / 2;
+		const scaleX = this.gameView.width / this.gameWidth;
+		const scaleY = this.gameView.height / this.gameHeight;
+		const halfFixedHeight = this.gameHeight / 2;
 		const halfDeviceHeight = this.deviceView.height / 2;
 		const halfGameHeight = this.gameView.height / 2;
 
-		const centerX = this.fixedWidth / 2;
+		const centerX = this.gameWidth / 2;
 		const centerY =
 			halfFixedHeight -
 			(halfDeviceHeight / scaleY - halfGameHeight / scaleY);
@@ -46,6 +51,18 @@ export class WindowHelper {
 		this.deviceView.setSize(width, height);
 		this.gameView.setSize(width, height);
 
+		this.calculateDevice();
 		this.updateCamera();
+	}
+
+	private calculateDevice() {
+		const scaleX = this.gameView.width / this.gameWidth;
+		const scaleY = this.gameView.height / this.gameHeight;
+
+		this.deviceHeight = this.deviceView.height / scaleY;
+		this.deviceWidth = this.deviceView.width / scaleX;
+
+		this.trueZero.y = this.gameHeight - this.deviceHeight;
+		this.trueZero.x = this.gameWidth - this.deviceWidth;
 	}
 }

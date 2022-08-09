@@ -50,9 +50,9 @@ export default class MainScene extends Phaser.Scene {
 		});
 
 		this.load.image(assets.background.key, assets.background.path);
-		this.load.image(assets.gameSizeBorder.key, assets.gameSizeBorder.path);
-		this.load.image(assets.verticalLine.key, assets.verticalLine.path);
-		this.load.image(assets.horizontalLine.key, assets.horizontalLine.path);
+		// this.load.image(assets.gameSizeBorder.key, assets.gameSizeBorder.path);
+		// this.load.image(assets.verticalLine.key, assets.verticalLine.path);
+		// this.load.image(assets.horizontalLine.key, assets.horizontalLine.path);
 
 		this.obstacles.forEach((obstacle) =>
 			this.load.image(obstacle.key, obstacle.path)
@@ -60,12 +60,12 @@ export default class MainScene extends Phaser.Scene {
 	}
 
 	public create() {
-		this.add
-			.image(0, 0, assets.gameSizeBorder.key)
-			.setOrigin(0, 0)
-			.setDepth(1);
+		// this.add
+		// 	.image(0, 0, assets.gameSizeBorder.key)
+		// 	.setOrigin(0, 0)
+		// 	.setDepth(1);
 
-		this.background = new Background(this, assets.background);
+		this.background = new Background(this);
 		this.player = new Player(this, assets.player);
 
 		this.eventEmitter = new Phaser.Events.EventEmitter();
@@ -83,6 +83,8 @@ export default class MainScene extends Phaser.Scene {
 	}
 
 	public update(time: number) {
+		this.background.update();
+
 		this.spawnObstacles();
 	}
 
@@ -107,16 +109,15 @@ export default class MainScene extends Phaser.Scene {
 
 		this.physics.add.collider(this.player, this.spawnedObstacles, () => {
 			this.isGameOver = true;
-
 			this.scene.pause();
 		});
 	}
 
 	private calculateRoutes(): void {
 		// Calculate Position
-		const deviceWidth = this.windowHelper.fixedWidth;
-		const sidewalkWidth = deviceWidth * 0.187963;
-		const roadWidth = deviceWidth * 0.624074;
+		const deviceWidth = this.windowHelper.gameWidth;
+		const sidewalkWidth = deviceWidth * 0.1528;
+		const roadWidth = deviceWidth * 0.6944;
 
 		this.leftLane = sidewalkWidth + roadWidth / 2 / 2;
 		this.rightLane = this.leftLane + roadWidth / 2;

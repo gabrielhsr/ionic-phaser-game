@@ -24,14 +24,14 @@ export class Game {
 		type: Phaser.AUTO,
 		scene: [MainScene],
 		pixelArt: true,
-		backgroundColor: '0x3364FF',
+		backgroundColor: '0x003401',
 		scale: {
 			mode: Phaser.Scale.RESIZE,
 			parent: 'game_phaser',
 		},
 		physics: {
 			default: 'arcade',
-			arcade: { debug: true },
+			arcade: { debug: false },
 		},
 	};
 
@@ -41,7 +41,9 @@ export class Game {
 		this.game.events.on('poststep', () => {
 			this.mainScene = this.game.scene.getScene('main') as MainScene;
 
-			this.mainScene.events.addListener('update', () => {
+			if (this.mainScene.isGameOver) return;
+
+			this.mainScene.events.once('update', () => {
 				this.scoreSubject.next(this.mainScene.score);
 				this.gameOverSubject.next(this.mainScene.isGameOver);
 			});
