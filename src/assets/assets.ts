@@ -18,6 +18,21 @@ export const assets = {
 		key: `${background}_key`,
 		path: `assets/${background}.png`,
 	},
+	gameSizeBorder: {
+		key: `${gameSize}_key`,
+		path: `assets/${gameSize}.png`,
+	},
+	verticalLine: {
+		key: `${verticalLine}_key`,
+		path: `assets/${verticalLine}.png`,
+	},
+	horizontalLine: {
+		key: `${horizontalLine}_key`,
+		path: `assets/${horizontalLine}.png`,
+	},
+};
+
+export const obstacles = {
 	obstacleCar: {
 		key: `${obstacleCar}_key`,
 		path: `assets/${obstacleCar}.png`,
@@ -42,23 +57,14 @@ export const assets = {
 		speed: 85,
 		scale: 1.3,
 	},
-	gameSizeBorder: {
-		key: `${gameSize}_key`,
-		path: `assets/${gameSize}.png`,
-	},
-	verticalLine: {
-		key: `${verticalLine}_key`,
-		path: `assets/${verticalLine}.png`,
-	},
-	horizontalLine: {
-		key: `${horizontalLine}_key`,
-		path: `assets/${horizontalLine}.png`,
-	},
 };
 
 export interface Asset {
 	key: string;
 	path: string;
-	speed?: number;
-	scale?: number;
+}
+
+export interface AssetObstacle extends Asset {
+	speed: number;
+	scale: number;
 }

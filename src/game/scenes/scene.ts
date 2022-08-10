@@ -1,5 +1,5 @@
 /* eslint-disable curly */
-import { Asset, assets } from 'src/assets/assets';
+import { Asset, AssetObstacle, assets, obstacles } from 'src/assets/assets';
 import { WindowHelper } from '../helpers/window-helper';
 import { between } from '../helpers/random';
 
@@ -24,11 +24,11 @@ export default class MainScene extends Phaser.Scene {
 	private background: Background;
 	private player: Player;
 
-	private obstacles: Asset[] = [
-		assets.obstacleHole,
-		assets.obstacleCar,
-		assets.obstacleTruck,
-		assets.obstacleVan,
+	private obstacles: AssetObstacle[] = [
+		obstacles.obstacleHole,
+		obstacles.obstacleCar,
+		obstacles.obstacleTruck,
+		obstacles.obstacleVan,
 	];
 
 	constructor() {
@@ -52,7 +52,7 @@ export default class MainScene extends Phaser.Scene {
 		this.load.image(assets.background.key, assets.background.path);
 		// this.load.image(assets.gameSizeBorder.key, assets.gameSizeBorder.path);
 		// this.load.image(assets.verticalLine.key, assets.verticalLine.path);
-		// this.load.image(assets.horizontalLine.key, assets.horizontalLine.path);
+		this.load.image(assets.horizontalLine.key, assets.horizontalLine.path);
 
 		this.obstacles.forEach((obstacle) =>
 			this.load.image(obstacle.key, obstacle.path)
