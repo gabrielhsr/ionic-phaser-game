@@ -25,6 +25,42 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+* {
+	font-family: "early_gameboyregular";
+}
+
 .no-scroll {
 	--overflow: hidden;
+}
+
+.light-bg {
+	background-color: #dce9cc;
+}
+
+.game-button {
+	background-color: var(--ion-color-primary);
+	color: var(--ion-text-color);
+	padding: 10px;
+	padding-bottom: 15px;
+	border: 5px solid var(--ion-color-border);
+	box-shadow: inset 0px -5px 0px 0px var(--ion-color-shadow);
+	width: 100%;
+}
+
+.game-button:focus {
+	box-shadow: inset 0px 5px 0px 0px var(--ion-color-shadow-active);
+	padding: 10px;
+	padding-top: 15px;
+}
+
+.container {
+	margin-right: auto;
+	margin-left: auto;
+	position: relative;
+}
+
+@media (min-width: 525px) {
+	.container {
+		width: 525px;
+	}
 }

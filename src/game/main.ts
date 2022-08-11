@@ -13,8 +13,13 @@ export class Game {
 		return this._isGameOver.asObservable();
 	}
 
+	public get fps(): Observable<number> {
+		return this._fps.asObservable();
+	}
+
 	private _score = new BehaviorSubject<number>(0);
 	private _isGameOver = new BehaviorSubject<boolean>(false);
+	private _fps = new BehaviorSubject<number>(0);
 
 	private mainScene: MainScene;
 
@@ -25,7 +30,7 @@ export class Game {
 		backgroundColor: '0x003401',
 		scale: {
 			mode: Phaser.Scale.RESIZE,
-			parent: 'game_phaser',
+			parent: 'game-phaser',
 		},
 		physics: {
 			default: 'arcade',
