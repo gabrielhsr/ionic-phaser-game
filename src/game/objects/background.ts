@@ -83,7 +83,7 @@ export class Background {
 			.setLineWidth(2)
 			.setOrigin(0.5, 0);
 
-		if (last.y >= this.zeroY) {
+		if (last?.y >= this.zeroY) {
 			this.lines.remove(first);
 			this.lines.add(line, true);
 		}

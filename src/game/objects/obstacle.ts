@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 import { AssetObstacle } from 'src/assets/assets';
 import { between } from '../helpers/random';
 import MainScene from '../scenes/scene';

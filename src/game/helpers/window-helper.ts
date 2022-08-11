@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 export class WindowHelper {
 	public gameWidth = 360;
 	public gameHeight = 640;

@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 import { Asset, AssetObstacle, assets, obstacles } from 'src/assets/assets';
 import { WindowHelper } from '../helpers/window-helper';
 import { between } from '../helpers/random';

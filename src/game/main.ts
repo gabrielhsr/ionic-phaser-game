@@ -1,5 +1,3 @@
-/* eslint-disable curly */
-/* eslint-disable @typescript-eslint/member-ordering */
 import * as Phaser from 'phaser';
 import { BehaviorSubject, Observable } from 'rxjs';
 import MainScene from './scenes/scene';
@@ -8,15 +6,15 @@ export class Game {
 	public game: Phaser.Game;
 
 	public get score(): Observable<number> {
-		return this.scoreSubject.asObservable();
+		return this._score.asObservable();
 	}
 
 	public get isGameOver(): Observable<boolean> {
-		return this.gameOverSubject.asObservable();
+		return this._isGameOver.asObservable();
 	}
 
-	private scoreSubject = new BehaviorSubject<number>(0);
-	private gameOverSubject = new BehaviorSubject<boolean>(false);
+	private _score = new BehaviorSubject<number>(0);
+	private _isGameOver = new BehaviorSubject<boolean>(false);
 
 	private mainScene: MainScene;
 
@@ -44,8 +42,8 @@ export class Game {
 			if (this.mainScene.isGameOver) return;
 
 			this.mainScene.events.once('update', () => {
-				this.scoreSubject.next(this.mainScene.score);
-				this.gameOverSubject.next(this.mainScene.isGameOver);
+				this._score.next(this.mainScene.score);
+				this._isGameOver.next(this.mainScene.isGameOver);
 			});
 		});
 	}
@@ -61,8 +59,8 @@ export class Game {
 	public restart() {
 		if (!this.mainScene) return;
 
-		this.gameOverSubject.next(false);
-		this.scoreSubject.next(0);
+		this._isGameOver.next(false);
+		this._score.next(0);
 		this.mainScene.scene.restart();
 	}
 }
