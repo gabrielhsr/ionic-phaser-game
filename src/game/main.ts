@@ -31,6 +31,10 @@ export class Game {
 			default: 'arcade',
 			arcade: { debug: false },
 		},
+		fps: {
+			target: 60,
+			forceSetTimeOut: true,
+		},
 	};
 
 	constructor() {
