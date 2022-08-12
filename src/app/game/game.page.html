@@ -1,9 +1,9 @@
 <ion-content class="no-scroll">
 	<div class="container">
 		<!-- Top Bar -->
-		<div class="bar">
-			<button class="pause" (click)="game.pause()"></button>
-			<p class="score">SCORE: {{ game.score | async }}</p>
+		<div class="bar" (click)="game?.pause()">
+			<button class="pause"></button>
+			<p class="score">SCORE: {{ game?.score | async }}</p>
 		</div>
 		<!-- Game Container -->
 		<div id="game-phaser"></div>
@@ -12,9 +12,9 @@
 
 <!-- Game Over Modal -->
 <app-gameover-modal
-	*ngIf="game.isGameOver | async"
+	*ngIf="game?.isGameOver | async"
 	[game]="game"
 ></app-gameover-modal>
 
 <!-- Pause Modal -->
-<app-pause-modal *ngIf="game.isPaused | async" [game]="game"></app-pause-modal>
+<app-pause-modal *ngIf="game?.isPaused | async" [game]="game"></app-pause-modal>

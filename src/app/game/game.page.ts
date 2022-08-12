@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Game } from 'src/game/main';
 
 @Component({
@@ -6,10 +6,14 @@ import { Game } from 'src/game/main';
 	templateUrl: './game.page.html',
 	styleUrls: ['./game.page.scss'],
 })
-export class GamePage implements OnInit {
+export class GamePage {
 	public game: Game;
 
-	ngOnInit() {
+	ionViewWillEnter() {
+		this.game?.destroy();
+	}
+
+	ionViewDidEnter() {
 		this.game = new Game();
 	}
 }

@@ -54,7 +54,6 @@ export class Game {
 		// Listeners of MainScene
 		this.game.events.on('poststep', () => {
 			this.mainScene = this.game.scene.getScene('main') as MainScene;
-
 			if (this.mainScene.isGameOver) return;
 
 			this.mainScene.events.once('update', () => {
@@ -89,5 +88,9 @@ export class Game {
 		this._isPaused.next(false);
 		this._score.next(0);
 		this.mainScene.scene.restart();
+	}
+
+	public destroy() {
+		this.game.destroy(true);
 	}
 }
