@@ -1,4 +1,4 @@
-import { Asset, assets } from 'src/assets/assets';
+import { Asset, player } from 'src/assets/assets';
 import { between } from '../helpers/random';
 import MainScene from '../scenes/scene';
 
@@ -37,16 +37,16 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
 		// Add Animation and Play
 		this.scene.anims.create({
-			key: assets.player.key,
+			key: player.default.key,
 			frames: this.scene.anims.generateFrameNumbers(
-				assets.player.key,
+				player.default.key,
 				null
 			),
 			frameRate: 60,
 			repeat: -1,
 		});
 
-		this.play(assets.player.key);
+		this.play(player.default.key);
 	}
 
 	private changeSide() {

@@ -1,4 +1,4 @@
-import { Asset, AssetObstacle, assets, obstacles } from 'src/assets/assets';
+import { Asset, AssetObstacle, obstacles, player } from 'src/assets/assets';
 import { WindowHelper } from '../helpers/window-helper';
 import { between } from '../helpers/random';
 
@@ -43,15 +43,14 @@ export default class MainScene extends Phaser.Scene {
 		this.calculateRoutes();
 
 		// Assets
-		this.load.spritesheet(assets.player.key, assets.player.path, {
+		this.load.spritesheet(player.default.key, player.default.path, {
 			frameWidth: 64,
 			frameHeight: 113,
 		});
 
-		this.load.image(assets.background.key, assets.background.path);
 		// this.load.image(assets.gameSizeBorder.key, assets.gameSizeBorder.path);
 		// this.load.image(assets.verticalLine.key, assets.verticalLine.path);
-		this.load.image(assets.horizontalLine.key, assets.horizontalLine.path);
+		// this.load.image(assets.horizontalLine.key, assets.horizontalLine.path);
 
 		this.obstacles.forEach((obstacle) =>
 			this.load.image(obstacle.key, obstacle.path)
@@ -65,7 +64,7 @@ export default class MainScene extends Phaser.Scene {
 		// 	.setDepth(1);
 
 		this.background = new Background(this);
-		this.player = new Player(this, assets.player);
+		this.player = new Player(this, player.default);
 
 		this.eventEmitter = new Phaser.Events.EventEmitter();
 

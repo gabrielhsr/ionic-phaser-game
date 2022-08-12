@@ -1,23 +1,22 @@
-const player = 'player';
-const playerSheet = 'player';
-const background = 'road';
+const playerSheet = 'player/player';
+
 const obstacleCar = 'obstacle/car01';
 const obstacleHole = 'obstacle/hole01';
 const obstacleTruck = 'obstacle/truck01';
 const obstacleVan = 'obstacle/van01';
-const gameSize = 'gameSize';
-const verticalLine = 'verticalLine';
-const horizontalLine = 'horizontalLine';
 
-export const assets = {
-	player: {
+const gameSize = 'helpers/gameSize';
+const verticalLine = 'helpers/verticalLine';
+const horizontalLine = 'helpers/horizontalLine';
+
+export const player = {
+	default: {
 		key: `${playerSheet}_key`,
 		path: `assets/${playerSheet}.png`,
 	},
-	background: {
-		key: `${background}_key`,
-		path: `assets/${background}.png`,
-	},
+};
+
+export const helpers = {
 	gameSizeBorder: {
 		key: `${gameSize}_key`,
 		path: `assets/${gameSize}.png`,
