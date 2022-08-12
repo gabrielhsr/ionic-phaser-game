@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RestartModalComponent } from './restart-modal/restart-modal.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
-	declarations: [RestartModalComponent],
+	declarations: [ModalComponent],
 	imports: [CommonModule],
-	exports: [RestartModalComponent],
+	exports: [ModalComponent],
 })
 export class ComponentsModule {}

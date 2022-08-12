@@ -13,12 +13,17 @@ export class Game {
 		return this._isGameOver.asObservable();
 	}
 
+	public get isPaused(): Observable<boolean> {
+		return this._isPaused.asObservable();
+	}
+
 	public get fps(): Observable<number> {
 		return this._fps.asObservable();
 	}
 
 	private _score = new BehaviorSubject<number>(0);
 	private _isGameOver = new BehaviorSubject<boolean>(false);
+	private _isPaused = new BehaviorSubject<boolean>(false);
 	private _fps = new BehaviorSubject<number>(0);
 
 	private mainScene: MainScene;
@@ -65,10 +70,21 @@ export class Game {
 		}
 	}
 
+	public pause() {
+		this.game.scene.pause('main');
+		this._isPaused.next(true);
+	}
+
+	public resume() {
+		this.game.scene.resume('main');
+		this._isPaused.next(false);
+	}
+
 	public restart() {
 		if (!this.mainScene) return;
 
 		this._isGameOver.next(false);
+		this._isPaused.next(false);
 		this._score.next(0);
 		this.mainScene.scene.restart();
 	}

@@ -1,14 +1,33 @@
 <ion-content class="no-scroll">
 	<div class="container">
 		<div class="bar">
-			<button routerLink="/menu">BACK</button>
+			<button class="pause" (click)="game.pause()"></button>
 			<p>SCORE: {{ game.score | async }}</p>
 		</div>
 		<div id="game-phaser"></div>
 	</div>
 </ion-content>
 
-<app-restart-modal
-	[game]="game"
-	*ngIf="game.isGameOver | async"
-></app-restart-modal>
+<!-- Game Over Modal -->
+<app-modal *ngIf="game.isGameOver | async" class="gameover-modal">
+	<h1>GAME OVER</h1>
+
+	<p>SCORE: {{ game.score | async }}</p>
+
+	<button class="game-button block" (click)="game.restart()">RESTART</button>
+</app-modal>
+
+<!-- Pause Modal -->
+<app-modal class="pause-modal" *ngIf="game.isPaused | async">
+	<h1>PAUSED</h1>
+
+	<div class="buttons-container">
+		<button class="game-button block" (click)="game.resume()">
+			RESUME
+		</button>
+		<button class="game-button block" (click)="game.restart()">
+			RESTART
+		</button>
+		<button class="game-button block" routerLink="/menu">BACK</button>
+	</div>
+</app-modal>
