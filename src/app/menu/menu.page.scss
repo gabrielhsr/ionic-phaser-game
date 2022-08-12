@@ -1,13 +1,14 @@
 .menu {
 	display: flex;
-	color: var(--ion-text-color);
-	flex-direction: column;
 	align-items: center;
-	padding-top: 50px;
+	flex-direction: column;
 	height: 100%;
+	padding-top: 50px;
+	color: var(--ion-text-color);
 	outline: 5px solid var(--ion-color-border);
+	background-color: var(--ion-background-color-light);
 
-	h1 {
+	.title {
 		font-size: 2.2rem;
 		letter-spacing: -2px;
 		word-spacing: -5px;
@@ -17,13 +18,13 @@
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
-		width: 100%;
 		padding: 40px;
+		width: 100%;
 	}
 
 	.bg-image {
-		flex-grow: 1;
 		display: flex;
+		flex-grow: 1;
 		align-items: flex-end;
 		width: 100%;
 

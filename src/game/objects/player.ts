@@ -1,6 +1,7 @@
-import { Asset, player } from 'src/assets/assets';
-import { between } from '../helpers/random';
 import MainScene from '../scenes/scene';
+
+import { between } from '../helpers/random';
+import { Asset, player } from 'src/assets/assets';
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
 	private isLeft = true;
@@ -15,11 +16,11 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 		this.controls();
 	}
 
-	public updateAnimationSpeed(): void {
+	public update(): void {
 		this.anims.timeScale = this.scene.speed / 10;
 	}
 
-	private controls() {
+	private controls(): void {
 		this.scene.input.on('pointerup', (pointer: Phaser.Input.Pointer) => {
 			if (pointer.leftButtonReleased()) {
 				this.changeSide();
@@ -27,16 +28,13 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 		});
 	}
 
-	private load() {
+	private load(): void {
 		const laneToSpawn = between(0, 2) === 1 ? true : false;
 		this.isLeft = laneToSpawn;
 
-		// Add Sprite to Scene
 		this.changeSide();
-		//
 
-		// Add Animation and Play
-		this.scene.anims.create({
+		const animOpts = {
 			key: player.default.key,
 			frames: this.scene.anims.generateFrameNumbers(
 				player.default.key,
@@ -44,19 +42,20 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 			),
 			frameRate: 60,
 			repeat: -1,
-		});
+		};
 
+		this.scene.anims.create(animOpts);
 		this.play(player.default.key);
 	}
 
-	private changeSide() {
+	private changeSide(): void {
 		this.isLeft = !this.isLeft;
 
 		const widthPosition = this.isLeft
 			? this.scene.rightLane
 			: this.scene.leftLane;
 		const heightPosition =
-			this.scene.windowHelper.gameHeight - this.displayHeight / 2 - 25;
+			this.scene.screen.gameHeight - this.displayHeight / 2 - 25;
 
 		this.setPosition(widthPosition, heightPosition);
 	}

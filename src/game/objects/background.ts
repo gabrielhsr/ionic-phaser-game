@@ -2,27 +2,23 @@ import MainScene from '../scenes/scene';
 
 export class Background {
 	private lines: Phaser.GameObjects.Group;
-	private linesTwo: Phaser.GameObjects.Group;
 
-	private middleWidth: number;
-
-	private gameHeight: number;
+	private middleScreen: number;
 	private deviceHeight: number;
 	private zeroY: number;
 
 	constructor(public scene: MainScene) {
-		this.middleWidth = scene.windowHelper.gameWidth / 2;
+		this.middleScreen = scene.screen.gameWidth / 2;
 
-		this.deviceHeight = scene.windowHelper.deviceHeight;
-		this.gameHeight = scene.windowHelper.gameHeight;
-		this.zeroY = scene.windowHelper.trueZero.y;
+		this.deviceHeight = scene.screen.deviceHeight;
+		this.zeroY = scene.screen.trueZero.y;
 
 		this.lines = scene.add.group();
 
 		this.create();
 	}
 
-	create() {
+	private create(): void {
 		// Road
 		this.scene.add
 			.rectangle(50, this.zeroY, 260, this.deviceHeight, 0xc7dda0)
@@ -47,7 +43,7 @@ export class Background {
 		) {
 			const line = new Phaser.GameObjects.Line(
 				this.scene,
-				this.middleWidth,
+				this.middleScreen,
 				index,
 				0,
 				0,
@@ -62,7 +58,7 @@ export class Background {
 		}
 	}
 
-	update() {
+	public update(): void {
 		const first = this.lines.getChildren()[0] as Phaser.GameObjects.Line;
 		const last = this.lines.getChildren()[
 			this.lines.getLength() - 1
@@ -72,7 +68,7 @@ export class Background {
 
 		const line = new Phaser.GameObjects.Line(
 			this.scene,
-			this.middleWidth,
+			this.middleScreen,
 			this.zeroY - 120,
 			0,
 			0,

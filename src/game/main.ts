@@ -1,6 +1,9 @@
 import * as Phaser from 'phaser';
-import { BehaviorSubject, Observable } from 'rxjs';
+
 import MainScene from './scenes/scene';
+
+import { colors } from './helpers/colors';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export class Game {
 	public game: Phaser.Game;
@@ -17,22 +20,20 @@ export class Game {
 		return this._isPaused.asObservable();
 	}
 
-	public get fps(): Observable<number> {
-		return this._fps.asObservable();
-	}
-
+	// Observables
 	private _score = new BehaviorSubject<number>(0);
 	private _isGameOver = new BehaviorSubject<boolean>(false);
 	private _isPaused = new BehaviorSubject<boolean>(false);
-	private _fps = new BehaviorSubject<number>(0);
 
+	// Scenes
 	private mainScene: MainScene;
 
+	// Config
 	private config: Phaser.Types.Core.GameConfig = {
 		type: Phaser.AUTO,
 		scene: [MainScene],
 		pixelArt: true,
-		backgroundColor: '0x003401',
+		backgroundColor: colors.backgroundColor,
 		scale: {
 			mode: Phaser.Scale.RESIZE,
 			parent: 'game-phaser',
@@ -50,6 +51,7 @@ export class Game {
 	constructor() {
 		this.game = new Phaser.Game(this.config);
 
+		// Listeners of MainScene
 		this.game.events.on('poststep', () => {
 			this.mainScene = this.game.scene.getScene('main') as MainScene;
 
@@ -62,7 +64,7 @@ export class Game {
 		});
 	}
 
-	public playPause() {
+	public togglePause() {
 		if (this.game.scene.isPaused('main')) {
 			this.game.scene.resume('main');
 		} else {

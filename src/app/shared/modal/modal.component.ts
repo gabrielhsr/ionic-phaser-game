@@ -5,8 +5,4 @@ import { Component, Input } from '@angular/core';
 	templateUrl: './modal.component.html',
 	styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent {
-	@Input() id = 'modal';
-
-	constructor() {}
-}
+export class ModalComponent {}

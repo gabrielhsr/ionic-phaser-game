@@ -1,0 +1,30 @@
+/* The Modal (background) */
+.modal {
+	display: block;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: var(--ion-modal-overlay);
+}
+
+.modal-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	margin: 15% auto;
+	width: 90%;
+	border: 7px solid var(--ion-color-border);
+	color: var(--ion-text-color);
+	background-color: var(--ion-background-color-light);
+}
+
+@media (min-width: 525px) {
+	.modal-content {
+		width: 510px;
+	}
+}

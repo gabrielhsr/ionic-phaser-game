@@ -13,6 +13,8 @@ export const player = {
 	default: {
 		key: `${playerSheet}_key`,
 		path: `assets/${playerSheet}.png`,
+		frameWidth: 64,
+		frameHeight: 113,
 	},
 };
 
@@ -66,4 +68,9 @@ export interface Asset {
 export interface AssetObstacle extends Asset {
 	speed: number;
 	scale: number;
+}
+
+export interface AssetPlayer extends Asset {
+	frameWidth: number;
+	frameHeight: number;
 }

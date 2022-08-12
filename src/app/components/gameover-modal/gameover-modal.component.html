@@ -1,0 +1,7 @@
+<app-modal class="gameover-modal">
+	<h1>GAME OVER</h1>
+
+	<p>SCORE: {{ game.score | async }}</p>
+
+	<button class="game-button block" (click)="game.restart()">RESTART</button>
+</app-modal>

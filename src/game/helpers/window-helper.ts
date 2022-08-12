@@ -15,6 +15,7 @@ export class WindowHelper {
 			this.gameWidth,
 			this.gameHeight
 		);
+
 		this.gameView = new Phaser.Structs.Size(
 			this.gameWidth,
 			this.gameHeight,
@@ -54,7 +55,7 @@ export class WindowHelper {
 		this.updateCamera();
 	}
 
-	private calculateDevice() {
+	private calculateDevice(): void {
 		const scaleX = this.gameView.width / this.gameWidth;
 		const scaleY = this.gameView.height / this.gameHeight;
 

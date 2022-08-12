@@ -1,0 +1,13 @@
+<app-modal class="pause-modal">
+	<h1>PAUSED</h1>
+
+	<div class="buttons-container">
+		<button class="game-button block" (click)="game.resume()">
+			RESUME
+		</button>
+		<button class="game-button block" (click)="game.restart()">
+			RESTART
+		</button>
+		<button class="game-button block" routerLink="/menu">BACK</button>
+	</div>
+</app-modal>

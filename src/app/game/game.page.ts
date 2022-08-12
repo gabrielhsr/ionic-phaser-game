@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/game/main';
 
 @Component({
@@ -9,8 +8,6 @@ import { Game } from 'src/game/main';
 })
 export class GamePage implements OnInit {
 	public game: Game;
-
-	constructor() {}
 
 	ngOnInit() {
 		this.game = new Game();
