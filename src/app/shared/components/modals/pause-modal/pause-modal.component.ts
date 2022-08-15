@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Game } from 'src/game/main';
+import { Game } from 'src/app/game/main';
 
 @Component({
 	selector: 'app-pause-modal',

@@ -44,7 +44,7 @@
 						"sourceMap": true,
 						"optimization": false,
 						"namedChunks": true,
-						"allowedCommonJsDependencies": ["phaser"]
+						"allowedCommonJsDependencies": ["phaser", "localforage"]
 					},
 					"configurations": {
 						"production": {

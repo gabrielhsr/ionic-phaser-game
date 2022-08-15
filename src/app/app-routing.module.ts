@@ -10,12 +10,12 @@ const routes: Routes = [
 	{
 		path: 'menu',
 		loadChildren: () =>
-			import('./menu/menu.module').then((m) => m.MenuPageModule),
+			import('./pages/menu/menu.module').then((m) => m.MenuPageModule),
 	},
 	{
 		path: 'game',
 		loadChildren: () =>
-			import('./game/game.module').then((m) => m.GamePageModule),
+			import('./pages/game/game.module').then((m) => m.GamePageModule),
 	},
 ];
 

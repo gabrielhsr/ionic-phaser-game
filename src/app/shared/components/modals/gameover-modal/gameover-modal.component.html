@@ -1,0 +1,19 @@
+<app-modal class="gameover-modal">
+	<h1>GAME OVER</h1>
+
+	<input
+		class="player"
+		type="text"
+		maxlength="3"
+		spellcheck="false"
+		autofocus
+	/>
+	<p>SCORE: {{ game.score | async }}</p>
+
+	<div class="buttons-container">
+		<button class="game-button block" (click)="restartAndSubmit()">
+			RESTART AND SUBMIT
+		</button>
+		<button class="game-button block" routerLink="/menu">BACK</button>
+	</div>
+</app-modal>

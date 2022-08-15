@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ComponentsModule } from '../components/components.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { GamePage } from './game.page';
 
@@ -14,7 +14,7 @@ const routes = [{ path: '', component: GamePage }];
 	imports: [
 		CommonModule,
 		IonicModule,
-		ComponentsModule,
+		SharedModule,
 		RouterModule.forChild(routes),
 	],
 	declarations: [GamePage],
