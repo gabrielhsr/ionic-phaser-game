@@ -1,28 +1,36 @@
 import { Injectable } from '@angular/core';
-
-import { Storage } from '@ionic/storage-angular';
+import { v4 as uuid } from 'uuid';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ScoreService {
-	private storage: Storage | null = null;
+	constructor() {}
 
-	constructor(private ionicStorage: Storage) {
-		this.init();
-	}
+	public save(player: string, score: number) {
+		const data = { player, score };
 
-	async init() {
-		const storage = await this.ionicStorage.create();
-		this.storage = storage;
-	}
+		if (localStorage.length >= 5) {
+			const storedScores = { ...localStorage };
+			let scores = [];
 
-	public set(player: string, score: number) {
-		this.storage?.set('player', player);
-		this.storage?.set('score', score);
-	}
+			for (const key in storedScores) {
+				if (Object.prototype.hasOwnProperty.call(storedScores, key)) {
+					const element = JSON.parse(storedScores[key]);
 
-	public async get(key: string) {
-		return await this.storage.get(key);
+					scores.push(element);
+				}
+			}
+
+			scores = scores
+				.sort((a, b) =>
+					a.score > b.score ? -1 : a.score < b.score ? 1 : 0
+				)
+				.slice(0, 5);
+
+			console.log(scores);
+		}
+
+		localStorage.setItem(uuid(), JSON.stringify(data));
 	}
 }

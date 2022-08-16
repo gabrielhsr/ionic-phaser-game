@@ -1,5 +1,15 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+	AfterViewInit,
+	Component,
+	ElementRef,
+	Input,
+	OnDestroy,
+	OnInit,
+	ViewChild,
+} from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+
 import { Game } from 'src/app/game/main';
 import { ScoreService } from 'src/app/shared/services/score.service';
 
@@ -8,13 +18,23 @@ import { ScoreService } from 'src/app/shared/services/score.service';
 	templateUrl: './gameover-modal.component.html',
 	styleUrls: ['./gameover-modal.component.scss'],
 })
-export class GameoverModalComponent implements OnInit, OnDestroy {
+export class GameoverModalComponent
+	implements OnInit, OnDestroy, AfterViewInit
+{
 	@Input() game: Game;
+	@ViewChild('playerInput') playerInput: ElementRef;
 
-	score$: Subscription;
-	score: number;
+	public form = this.formBuilder.group({
+		player: ['', [Validators.minLength(3), Validators.maxLength(3)]],
+	});
 
-	constructor(private scoreService: ScoreService) {}
+	public score$: Subscription;
+	public score: number;
+
+	constructor(
+		private formBuilder: FormBuilder,
+		private scoreService: ScoreService
+	) {}
 
 	public ngOnInit(): void {
 		this.score$ = this.game.score.subscribe(
@@ -26,8 +46,14 @@ export class GameoverModalComponent implements OnInit, OnDestroy {
 		this.score$.unsubscribe();
 	}
 
+	public ngAfterViewInit(): void {
+		this.playerInput.nativeElement.focus();
+	}
+
 	public restartAndSubmit(): void {
-		this.scoreService.set('GHS', this.score);
+		if (this.form.value.player) {
+			this.scoreService.save(this.form.value.player, this.score);
+		}
 
 		this.game.restart();
 	}
