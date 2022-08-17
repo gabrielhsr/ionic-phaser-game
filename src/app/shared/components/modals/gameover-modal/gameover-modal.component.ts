@@ -18,9 +18,7 @@ import { ScoreService } from 'src/app/shared/services/score.service';
 	templateUrl: './gameover-modal.component.html',
 	styleUrls: ['./gameover-modal.component.scss'],
 })
-export class GameoverModalComponent
-	implements OnInit, OnDestroy, AfterViewInit
-{
+export class GameoverModalComponent implements OnInit, AfterViewInit {
 	@Input() game: Game;
 	@ViewChild('playerInput') playerInput: ElementRef;
 
@@ -28,8 +26,11 @@ export class GameoverModalComponent
 		player: ['', [Validators.minLength(3), Validators.maxLength(3)]],
 	});
 
-	public score$: Subscription;
-	public score: number;
+	private score$: Subscription;
+	private lastPlayer$: Subscription;
+
+	public score = 0;
+	public bestScore: number;
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -37,24 +38,34 @@ export class GameoverModalComponent
 	) {}
 
 	public ngOnInit(): void {
-		this.score$ = this.game.score.subscribe(
-			(score) => (this.score = score)
-		);
+		this.score$ = this.game.score.subscribe((score) => {
+			if (score > 0) {
+				this.score = score;
+			}
+		});
+
+		this.bestScore = this.scoreService.getBestScore();
+
+		this.lastPlayer$ = this.scoreService.lastPlayer.subscribe((player) => {
+			if (player) this.form.controls.player.setValue(player);
+		});
 	}
 
-	public ngOnDestroy(): void {
-		this.score$.unsubscribe();
-	}
-
-	public ngAfterViewInit(): void {
-		this.playerInput.nativeElement.focus();
-	}
-
-	public restartAndSubmit(): void {
+	public onExit(): void {
 		if (this.form.value.player) {
 			this.scoreService.save(this.form.value.player, this.score);
 		}
 
+		this.score$.unsubscribe();
+		this.lastPlayer$.unsubscribe();
+	}
+
+	public restart(): void {
+		this.onExit();
 		this.game.restart();
+	}
+
+	public ngAfterViewInit(): void {
+		this.playerInput.nativeElement.focus();
 	}
 }

@@ -1,11 +1,14 @@
 <app-modal class="gameover-modal">
-	<h1>GAME OVER</h1>
+	<h1 style="text-align: center">GAME OVER</h1>
 
-	<p>SCORE: {{ game.score | async }}</p>
+	<h2>SCORE: {{ game.score | async }}</h2>
+	<h2>BEST: {{ bestScore }}</h2>
 
 	<form [formGroup]="form" #ngForm="ngForm">
+		<label for="player">Player:</label>
 		<input
 			class="player"
+			name="player"
 			type="text"
 			spellcheck="false"
 			[appMaxLength]="3"
@@ -13,17 +16,20 @@
 			#playerInput
 		/>
 		<div class="characters-minimal" *ngIf="form.controls.player.invalid">
-			At least three characters
+			Must have three characters
 		</div>
 	</form>
 
 	<div class="buttons-container">
-		<button class="game-button block" (click)="restartAndSubmit()">
-			<ng-container *ngIf="form.value.player; else restart">
-				RESTART AND SEND
-			</ng-container>
-			<ng-template #restart>RESTART</ng-template>
+		<button
+			class="game-button block"
+			(click)="restart()"
+			[disabled]="form.controls.player.invalid"
+		>
+			RESTART
 		</button>
-		<button class="game-button block" routerLink="/menu">BACK</button>
+		<button class="game-button block" routerLink="/menu" (click)="onExit()">
+			BACK
+		</button>
 	</div>
 </app-modal>

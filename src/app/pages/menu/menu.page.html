@@ -9,6 +9,23 @@
 			<button class="game-button" (click)="app.exitApp()">EXIT</button>
 		</div>
 
+		<div class="scoreboard-container" *ngIf="scores.length">
+			<div class="score-title">SCOREBOARD</div>
+
+			<div class="scores-container">
+				<table>
+					<tr>
+						<th>PLAYER</th>
+						<th>SCORE</th>
+					</tr>
+					<tr *ngFor="let score of scores">
+						<td>{{score.player}}</td>
+						<td>{{score.score}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
 		<div class="bg-image">
 			<img src="../../assets/menu/background.gif" />
 		</div>
