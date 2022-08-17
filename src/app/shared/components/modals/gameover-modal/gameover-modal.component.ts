@@ -18,9 +18,8 @@ import { ScoreService } from 'src/app/shared/services/score.service';
 	templateUrl: './gameover-modal.component.html',
 	styleUrls: ['./gameover-modal.component.scss'],
 })
-export class GameoverModalComponent implements OnInit, AfterViewInit {
+export class GameoverModalComponent implements OnInit {
 	@Input() game: Game;
-	@ViewChild('playerInput') playerInput: ElementRef;
 
 	public form = this.formBuilder.group({
 		player: ['', [Validators.minLength(3), Validators.maxLength(3)]],
@@ -63,9 +62,5 @@ export class GameoverModalComponent implements OnInit, AfterViewInit {
 	public restart(): void {
 		this.onExit();
 		this.game.restart();
-	}
-
-	public ngAfterViewInit(): void {
-		this.playerInput.nativeElement.focus();
 	}
 }
