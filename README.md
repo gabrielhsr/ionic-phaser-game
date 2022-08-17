@@ -25,10 +25,10 @@ Tap the screen and dodge obstacles as speed increases.
 - Score using RXJS Observables
 - Simple Gameplay
 - Retro Look
+- Top five score
 
 ## Roadmap
 
-- Top five score
 - Change starting difficulty
 - Change player car
 - Unlock new cars based on the pontuation
