@@ -27,13 +27,6 @@ Tap the screen and dodge obstacles as speed increases.
 - Retro Look
 - Top five score
 
-## Roadmap
-
-- Change starting difficulty
-- Change player car
-- Unlock new cars based on the pontuation
-- And more to think
-
 ## Run Locally
 
 Clone the project
