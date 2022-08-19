@@ -5,6 +5,11 @@ Ionic Phaser Game is an attempt to make a mobile focused game using the Ionic Fr
 
 ![Demo](https://raw.githubusercontent.com/gabrielhsr/ionic-phaser-game/master/src/assets/others/example.png)
 
+## Where To Play
+
+At https://rachadores.ghsr.com.br. 
+(I haven't tested it on different devices and browsers, so it may contain bugs.)
+
 ## How To Play
 
 Tap the screen and dodge obstacles as speed increases.
